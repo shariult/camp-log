@@ -1,0 +1,55 @@
+<nav class="navbar">
+  <div class="container navbar__nav">
+    <div class="navbar__logo">
+      <a href="/" class="navbar__logo-link">
+        <img
+          src="/img/logo-light.cc2a7699.png"
+          class="navbar__logo-img"
+          alt="/"
+        />
+      </a>
+    </div>
+    <ul class="navbar__list">
+      <li class="navbar__item">
+        <a
+          href="/camps"
+          class="<%= currentPage && currentPage === 'allCamps' ? 'navbar__link active' : 'navbar__link' %>"
+          >All Camps</a
+        >
+      </li>
+      <li class="navbar__item">
+        <a
+          href="/camps/new"
+          class="<%= currentPage && currentPage === 'newCamp' ? 'navbar__link active' : 'navbar__link' %>"
+          >Post Camp</a
+        >
+      </li>
+      <li class="navbar__item">
+        <a
+          href="/about"
+          class="<%= currentPage && currentPage === 'about' ? 'navbar__link active' : 'navbar__link' %>"
+          >About</a
+        >
+      </li>
+      <li class="navbar__item">
+        <a
+          href="/contact"
+          class="<%= currentPage && currentPage === 'contact' ? 'navbar__link active' : 'navbar__link' %>"
+          >Contact</a
+        >
+      </li>
+      <% if(!currentUser) { %>
+      <li class="navbar__item">
+        <a href="/user" class="btn btn--secondary">Login</a>
+      </li>
+    </ul>
+    <% } else { %>
+    <li class="navbar__item">
+      <a href="/logout" class="btn btn--primary">Logout</a>
+    </li>
+    <% } %>
+    <div class="navbar__toggle">
+      <span class="navbar__toggle-icon">&nbsp;</span>
+    </div>
+  </div>
+</nav>

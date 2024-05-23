@@ -1,0 +1,2 @@
+const e=document.querySelector(".navbar__list"),t=document.querySelectorAll(".navbar__item");document.querySelector(".navbar__toggle").addEventListener("click",()=>{e.classList.toggle("navbar__toggle--open")}),Array.from(t).forEach(t=>{t.addEventListener("click",()=>{e.classList.toggle("navbar__toggle--open")})});const r=document.querySelector(".alert__close"),c=document.querySelector(".alert");r.addEventListener("click",function(){c.style.transform="scaleY(0)"});
+//# sourceMappingURL=script.9494a122.js.map

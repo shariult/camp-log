@@ -1,0 +1,123 @@
+<% layout("layouts/boilerplate") %>
+
+<main class="main">
+  <section class="section-form">
+    <h2 class="heading-2 mb-48 text--center">
+      <span class="heading-2--sub">Share Your Experience</span>Post Camp
+    </h2>
+    <div class="container-form">
+      <form action="/camps" method="post" class="form">
+        <div class="form__group">
+          <label for="title" class="form__label">Camp Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="form__input"
+            placeholder="Camp Title"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="location" class="form__label">Location</label>
+          <input
+            type="text"
+            name="location"
+            id="location"
+            class="form__input"
+            placeholder="Location"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="price" class="form__label">Price</label>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            class="form__input"
+            placeholder="Price per Night"
+            required
+          />
+        </div>
+        <div class="form__group">
+          <label for="campImage" class="form__label">Camp Image</label>
+          <input
+            type="text"
+            name="campImage"
+            id="campImage"
+            class="form__input"
+            placeholder="Camp Image"
+          />
+        </div>
+        <div class="form__group">
+          <label for="amenities" class="form__label">Amenities</label>
+          <input
+            type="text"
+            name="amenities"
+            id="amenities"
+            class="form__input"
+            placeholder="Separate Amenities by comma"
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="capacity" class="form__label">Capacity (People)</label>
+          <input
+            type="number"
+            name="capacity"
+            id="capacity"
+            class="form__input"
+            placeholder="Camp Capacity"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="area" class="form__label">Camp Size</label>
+          <input
+            type="text"
+            name="area"
+            id="area"
+            class="form__input"
+            placeholder="Camp Size"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="contact" class="form__label">Camp Contact Email</label>
+          <input
+            type="email"
+            name="contact"
+            id="contact"
+            class="form__input"
+            placeholder="contact"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="website" class="form__label">Camp Website</label>
+          <input
+            type="text"
+            name="website"
+            id="website"
+            class="form__input"
+            placeholder="Camp Website"
+          />
+        </div>
+        <div class="form__group">
+          <label for="description" class="form__label">Description</label>
+          <textarea
+            name="description"
+            value
+            id="description"
+            class="form__textarea"
+            placeholder="Describe the Camp"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn--md btn--primary mt-24">
+          Add Camp
+        </button>
+      </form>
+    </div>
+  </section>
+</main>

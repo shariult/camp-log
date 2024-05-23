@@ -1,0 +1,52 @@
+<% layout('layouts/boilerplate') %>
+
+<main class="main">
+  <section class="section-map">
+    <div class="section-map__img-box">
+      <img
+        src="img/map-dummy.daa78036.jpg"
+        alt="dummy map"
+        class="section-map__img"
+      />
+    </div>
+    <h1 class="heading-1 section-map__title">All Camps</h1>
+  </section>
+  <section class="section-camps">
+    <div class="container">
+      <% if (campsData.length > 0) { %>
+      <div class="cards">
+        <% campsData.forEach(campData => {%>
+        <div class="camp-card cards-2">
+          <div class="camp-card__img-box">
+            <img
+              src="<%= campData.campImage %>"
+              alt="camp 4"
+              class="camp-card__img"
+            />
+          </div>
+          <div class="camp-card__header mb-12">
+            <h3 class="camp-card__title heading-3"><%= campData.title %></h3>
+            <p class="camp-card__specification">
+              <%= campData.capacity %> persons | <%= campData.area %>
+            </p>
+          </div>
+          <p class="camp-card__details mb-12"><%= campData.description %></p>
+          <div class="camp-card__footer">
+            <p class="camp-card__price">
+              <span>Price:</span> $<%= campData.price %> <span>/ Night</span>
+            </p>
+            <a
+              href="/camps/<%= campData._id %>"
+              class="btn btn--link camp-card__link"
+              >View Details <i class="fa-chevron-right fa-solid"></i
+            ></a>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <h3 class="heading-3 text--center mb-48">No Camps Found!</h3>
+      <% } %>
+    </div>
+  </section>
+</main>

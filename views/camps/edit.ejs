@@ -1,0 +1,133 @@
+<% layout("layouts/boilerplate") %>
+
+<main class="main">
+  <section class="section-form">
+    <h2 class="heading-2 mb-48 text--center">
+      <span class="heading-2--sub">Update Your Camp</span><%= campData.title %>
+    </h2>
+    <div class="container-form">
+      <form
+        action="/camps/<%= campData._id %>?_method=PUT"
+        method="post"
+        class="form"
+      >
+        <div class="form__group">
+          <label for="title" class="form__label">Camp Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="form__input"
+            placeholder="Camp Title"
+            value="<%= campData.title %>"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="location" class="form__label">Location</label>
+          <input
+            type="text"
+            name="location"
+            id="location"
+            class="form__input"
+            placeholder="Location"
+            value="<%= campData.location %>"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="price" class="form__label">Price</label>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            class="form__input"
+            placeholder="Price per Night"
+            value="<%= campData.price %>"
+            required
+          />
+        </div>
+        <div class="form__group">
+          <label for="campImage" class="form__label">Camp Image</label>
+          <input
+            type="text"
+            name="campImage"
+            id="campImage"
+            class="form__input"
+            placeholder="Camp Image"
+            value="<%= campData.campImage %>"
+          />
+        </div>
+        <div class="form__group">
+          <label for="amenities" class="form__label">Amenities</label>
+          <input type="text" name="amenities" id="amenities" class="form__input"
+          placeholder="Separate Amenities by comma" value="<%=
+          campData.amenities.join(", ") %>" />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="capacity" class="form__label">Capacity (People)</label>
+          <input
+            type="number"
+            name="capacity"
+            id="capacity"
+            class="form__input"
+            placeholder="Camp Capacity"
+            value="<%= campData.capacity %>"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="area" class="form__label">Camp Size</label>
+          <input
+            type="text"
+            name="area"
+            id="area"
+            class="form__input"
+            placeholder="Camp Size"
+            value="<%= campData.area %>"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="contact" class="form__label">Camp Contact Email</label>
+          <input
+            type="email"
+            name="contact"
+            id="contact"
+            class="form__input"
+            placeholder="contact"
+            value="<%= campData.contact %>"
+            required
+          />
+        </div>
+        <div class="form__group form__group-1-2">
+          <label for="website" class="form__label">Camp Website</label>
+          <input
+            type="text"
+            name="website"
+            id="website"
+            class="form__input"
+            placeholder="Camp Website"
+            value="<%= campData.website %>"
+          />
+        </div>
+        <div class="form__group">
+          <label for="description" class="form__label">Description</label>
+          <textarea
+            name="description"
+            value
+            id="description"
+            class="form__textarea"
+            placeholder="Describe the Camp"
+            required
+          >
+<%= campData.description %></textarea
+          >
+        </div>
+        <button type="submit" class="btn btn--md btn--primary mt-24">
+          Update Camp
+        </button>
+      </form>
+    </div>
+  </section>
+</main>

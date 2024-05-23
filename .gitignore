@@ -1,0 +1,9 @@
+.cache/
+.idea/
+.vscode/
+build/
+dist/
+node_modules/
+.env
+_env.php
+TODO.md

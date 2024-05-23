@@ -1,0 +1,135 @@
+<% layout("layouts/boilerplate") %>
+
+<main class="main">
+  <section class="section-header">
+    <h1 class="heading-1 text--center text--light">Sign In / Up</h1>
+  </section>
+  <section class="section-form">
+    <div class="container row-flex">
+      <div class="col-1-2 user user--signup">
+        <h2 class="heading-2 mb-48 text--center">
+          <span class="heading-2--sub">Join Us Now</span>Sign Up
+        </h2>
+        <form action="/register" method="post" class="form">
+          <div class="form__group form__group-1-2">
+            <label for="firstname" class="form__label">First Name</label>
+            <input
+              type="text"
+              name="firstname"
+              id="firstname"
+              class="form__input"
+              placeholder="First Name"
+              required
+            />
+          </div>
+          <div class="form__group form__group-1-2">
+            <label for="lastname" class="form__label">Last Name</label>
+            <input
+              type="text"
+              name="lastname"
+              id="lastname"
+              class="form__input"
+              placeholder="Last Name"
+              required
+            />
+          </div>
+          <div class="form__group">
+            <label for="email" class="form__label">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="form__input"
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div class="form__group form__group-1-2">
+            <label for="username" class="form__label">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="form__input"
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div class="form__group form__group-1-2">
+            <label for="password" class="form__label">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="form__input"
+              placeholder="Password "
+              required
+            />
+          </div>
+          <div class="form__group form__group-1-2">
+            <label for="userImage" class="form__label">Profile Picture</label>
+            <input
+              type="text"
+              name="userImage"
+              id="userImage"
+              class="form__input"
+              placeholder="Image URL"
+            />
+          </div>
+          <div class="form__group form__group-1-2">
+            <label for="birthDate" class="form__label">Birth Date</label>
+            <input
+              type="date"
+              name="birthDate"
+              id="birthDate"
+              class="form__input"
+              placeholder="Birth Date"
+              required
+            />
+          </div>
+          <div class="form__group">
+            <label for="about" class="form__label">About You</label>
+            <textarea
+              name="about"
+              value
+              id="about"
+              class="form__textarea"
+              placeholder="Tell us about yourself"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary mt-16">Sign Up</button>
+        </form>
+      </div>
+      <div class="col-1-2 user user--signin">
+        <h2 class="heading-2 mb-48 text--center">
+          <span class="heading-2--sub">Already a Member</span>Sign In
+        </h2>
+        <form action="/login" method="post" class="form">
+          <div class="form__group">
+            <label for="username" class="form__label">Username</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              class="form__input"
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div class="form__group">
+            <label for="password" class="form__label">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="form__input"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn--primary mt-16">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>

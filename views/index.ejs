@@ -1,0 +1,184 @@
+<% layout("layouts/boilerplate") %>
+
+<main class="main">
+  <header class="header">
+    <div class="container">
+      <h1 class="heading-1 mb-12">
+        <span class="heading-1__main text--xl">Discover</span> Your Next Camping
+        <br />
+        Adventure
+      </h1>
+      <p class="header__text mb-24">
+        This Website is intended to Show my Web Development Skills
+        <br />
+        Data Provided about Camps are not real.
+      </p>
+      <a href="/camps" class="btn btn--md btn--secondary">Find Your Campsite</a>
+    </div>
+  </header>
+  <section class="section-search">
+    <form action="#" method="get" class="container form search">
+      <div class="form__group search__input">
+        <input
+          type="text"
+          name="search"
+          id="search"
+          class="form__input"
+          placeholder="Search Camps by Name or Location"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn--primary">Search</button>
+    </form>
+  </section>
+  <section class="section-camps">
+    <div class="container">
+      <h2 class="heading-2 mb-48 text--center">
+        <span class="heading-2--sub">Featured</span>Our Camps
+      </h2>
+      <% if (campsData.length > 0 ) { %>
+
+      <div class="cards">
+        <% campsData.forEach(campData => {%>
+        <div class="camp-card cards-2">
+          <div class="camp-card__img-box">
+            <img
+              src="<%= campData.campImage %>"
+              alt="camp 4"
+              class="camp-card__img"
+            />
+          </div>
+          <div class="camp-card__header mb-12">
+            <h3 class="camp-card__title heading-3"><%= campData.title %></h3>
+            <p class="camp-card__specification">
+              <%= campData.capacity %> persons | <%= campData.area %>
+            </p>
+          </div>
+          <p class="camp-card__details mb-12"><%= campData.description %></p>
+          <div class="camp-card__footer">
+            <p class="camp-card__price">
+              <span>Price:</span> $<%= campData.price %> <span>/ Night</span>
+            </p>
+            <a
+              href="/camps/<%= campData._id %>"
+              class="btn btn--link camp-card__link"
+              >View Details <i class="fa-chevron-right fa-solid"></i
+            ></a>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <p class="text--xl text--center mb-48">No Camps found!</p>
+      <% } %>
+      <div class="text--center">
+        <a href="/camps" class="btn btn--md btn--primary">View More</a>
+      </div>
+    </div>
+  </section>
+  <section class="section-about">
+    <div class="container row-flex">
+      <div class="about__img-box col-1-3">
+        <img
+          src="img/about.7f355936.jpg"
+          alt="camper on a cliff"
+          class="about__img"
+        />
+      </div>
+      <div class="about__content col-2-3">
+        <h2 class="about__title heading-2 mb-12">
+          <span class="heading-2--sub">What we are</span>About Us
+        </h2>
+        <p class="about__details">
+          CampLog is a community-driven platform built by campers, for campers.
+          Our mission is to provide a reliable and comprehensive resource for
+          discovering and sharing information about campgrounds. Unlike many
+          other review sites, which may feature paid promotions, CampLog is
+          dedicated to ensuring that all reviews are genuine and verified.
+        </p>
+        <p class="about__details">
+          At CampLog, users can post details about the campgrounds they've
+          visited, including their experiences, amenities, and tips. Each review
+          is verified to ensure the reviewer actually stayed at the campground,
+          making all our content organic and trustworthy. This way, you can make
+          informed decisions and avoid the hassle of arriving at a new area
+          without reliable information.
+        </p>
+        <p class="about__details">
+          At CampLog, users can post details about the campgrounds they've
+          visited, including their experiences, amenities, and tips. Each review
+          is verified to ensure the reviewer actually stayed at the campground,
+          making all our content organic and trustworthy. This way, you can make
+          informed decisions and avoid the hassle of arriving at a new area
+          without reliable information.
+        </p>
+        <a href="/contact" class="btn btn--primary mt-16">Contact Us</a>
+      </div>
+    </div>
+  </section>
+  <section class="section-features">
+    <h2 class="heading-2 mb-48 text--center">
+      <span class="heading-2--sub">What We Offer</span>Features
+    </h2>
+    <div class="cards container">
+      <div class="cards-3 feature">
+        <h5 class="feature__title heading-5">
+          <i class="fa-binoculars fas feature__icon"></i> Explore
+        </h5>
+        <p class="feature__details">
+          Explore a wide range of campgrounds with detailed descriptions,
+          amenities, and reviews to find your perfect camping destination.
+        </p>
+      </div>
+      <div class="cards-3 feature">
+        <h5 class="feature__title heading-5">
+          <i class="fa-share-alt fas feature__icon"></i> Share
+        </h5>
+        <p class="feature__details">
+          Share your camping adventures, tips, and insights with the Camp-Log
+          community by writing reviews and uploading photos of your experiences.
+        </p>
+      </div>
+      <div class="cards-3 feature">
+        <h5 class="feature__title heading-5">
+          <i class="fa-tree fas feature__icon"></i> Love Nature
+        </h5>
+        <p class="feature__details">
+          Immerse yourself in nature and enjoy outdoor activities such as
+          hiking, fishing, and stargazing at beautiful campsites across the
+          country.
+        </p>
+      </div>
+      <div class="cards-3 feature">
+        <h5 class="feature__title heading-5">
+          <i class="fa-map fas feature__icon"></i> Maps
+        </h5>
+        <p class="feature__details">
+          Plan your camping trip with ease using interactive maps, campground
+          ratings, and user reviews to make informed decisions about where to
+          stay.
+        </p>
+      </div>
+      <div class="cards-3 feature">
+        <h5 class="feature__title heading-5">
+          <i class="fa-users fas feature__icon"></i> Explore
+        </h5>
+        <p class="feature__details">
+          Join a vibrant community of outdoor enthusiasts, share
+          recommendations, and connect with like-minded campers to enhance your
+          camping experience.
+        </p>
+      </div>
+      <div class="cards-3 feature">
+        <h5 class="feature__title heading-5">
+          <i class="fa-thumbs-up fas feature__icon"></i> Personalized Experience
+        </h5>
+        <p class="feature__details">
+          Receive personalized campground recommendations based on your
+          preferences, past reviews, and camping interests to discover new and
+          exciting destinations.
+        </p>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,195 @@
+<% layout("layouts/boilerplate") %>
+
+<main class="main">
+  <section class="section-map">
+    <div class="section-map__img-box">
+      <img
+        src="/img/map-dummy.daa78036.jpg"
+        alt="dummy map"
+        class="section-map__img"
+      />
+    </div>
+    <div class="camp__header">
+      <div class="camp__header-box container">
+        <div class="camp__title-box">
+          <h2 class="camp__title heading-2"><%= campData.title %></h2>
+          <p class="camp__info">
+            <span class="camp__rating"
+              ><%= Math.ceil(campData.averageRating) %> &starf;</span
+            >
+            |
+            <span
+              >posted by <%= `${campData.owner.firstname}
+              ${campData.owner.lastname}` %></span
+            >
+          </p>
+        </div>
+        <p class="camp__price"><span>$<%= campData.price %></span> / Night</p>
+      </div>
+    </div>
+    <% if(currentUser && currentUser._id.equals(campData.owner._id)){ %>
+    <div class="camp__action">
+      <div class="container camp__action-box">
+        <a
+          href="/camps/<%= campData._id %>/edit"
+          class="btn btn--primary camp__btn-edit"
+          >Edit Camp</a
+        >
+        <form
+          action="/camps/<%= campData._id %>?_method=DELETE"
+          method="POST"
+          class="form"
+        >
+          <button class="btn btn--danger">
+            <i class="fa-solid fa-trash camp__delete-icon"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    <% } %>
+    <div class="camp__body container">
+      <div class="row-flex">
+        <div class="col-2-3">
+          <div class="camp__img-box">
+            <img
+              src="<%= campData.campImage %>"
+              alt="camp 1"
+              class="camp__img"
+            />
+          </div>
+        </div>
+        <div class="col-1-3">
+          <div class="camp__contact">
+            <h3 class="camp__contact-title heading-3 mb-24">Contact Info</h3>
+            <p class="camp__address">
+              <i class="fa-location-dot fa-solid"></i> <%= campData.location %>
+            </p>
+            <p class="camp__address">
+              <i class="fa-phone fa-solid"></i>
+              <a
+                href="mailto:<%= campData.contact %>"
+                class="btn btn--link camp__link"
+                ><%= campData.contact %></a
+              >
+            </p>
+            <% if(campData.website) {%>
+            <p class="camp__address">
+              <i class="fa-globe fa-solid"></i>
+              <a href="<%= campData.website %>" class="btn btn--link camp__link"
+                ><%= campData.website %></a
+              >
+            </p>
+            <% } %>
+          </div>
+        </div>
+        <div class="col-2-3">
+          <div class="camp__specification-box my-24">
+            <p class="camp__specification">
+              <i class="fa-users fas"></i> <%= campData.capacity %> People
+            </p>
+            <p class="camp__specification">
+              <i class="fa-ruler-combined fas"></i> <%= campData.area %>
+            </p>
+          </div>
+          <p class="camp__details"><%= campData.description %></p>
+        </div>
+        <div class="col-1-3">
+          <div class="camp__amenities">
+            <% campData.amenities.forEach(camp => { %>
+            <p class="camp__amenity"><%= camp %></p>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="container section-reviews">
+    <div class="row-flex">
+      <div class="col-1-3">
+        <h2 class="heading-2 mb-24">Leave a Review</h2>
+        <form
+          action="/camps/<%= campData._id %>/reviews"
+          method="post"
+          class="form review-post"
+        >
+          <div class="form__group">
+            <textarea
+              name="content"
+              value
+              id="content"
+              class="form__textarea"
+              placeholder="Type Your Review"
+              required
+            ></textarea>
+          </div>
+          <div class="form__group">
+            <fieldset class="starability-grow">
+              <legend>Rating:</legend>
+              <input
+                type="radio"
+                id="no-rate"
+                class="input-no-rate"
+                name="rating"
+                value="0"
+                checked
+                aria-label="No rating."
+              />
+              <input type="radio" id="first-rate1" name="rating" value="1" />
+              <label for="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="rating" value="2" />
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input type="radio" id="first-rate3" name="rating" value="3" />
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="rating" value="4" />
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="rating" value="5" />
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+          </div>
+          <button type="submit" class="btn btn--primary marathon__btn">
+            Add Review
+          </button>
+        </form>
+      </div>
+      <div class="col-2-3">
+        <% if(campData.reviews.length > 0){ %> <%
+        campData.reviews.forEach(review => { %>
+        <div class="review">
+          <div class="review__img-box">
+            <img
+              src="<%= review.owner.userImage %>"
+              alt="author"
+              class="review__img"
+            />
+          </div>
+          <div class="review__content">
+            <p class="review__author">
+              <%= `${review.owner.firstname} ${review.owner.lastname}` %>
+            </p>
+            <p
+              class="review__rating starability-result"
+              data-rating="<%= review.rating %>"
+            >
+              Rated: <%= review.rating %> stars
+            </p>
+            <p class="review__comment"><%= review.content %></p>
+            <% if(currentUser && currentUser._id.equals(review.owner._id)){ %>
+            <form
+              action="/camps/<%= campData._id %>/reviews/<%= review._id %>?_method=DELETE"
+              method="post"
+              class="form"
+            >
+              <button class="btn btn--danger">
+                <%# <i class="fa-solid fa-trash"></i> %> Delete
+              </button>
+            </form>
+            <% } %>
+          </div>
+        </div>
+        <% }); } else { %>
+        <p class="text--center text--xl">No Reviews Found!</p>
+        <% } %>
+      </div>
+    </div>
+  </section>
+</main>

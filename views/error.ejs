@@ -1,0 +1,11 @@
+<% layout('layouts/boilerplate') %>
+
+<main class="main">
+  <section class="section-error">
+    <h2 class="heading-2">Error</h2>
+    <p class="error__title"><%= statusCode %></p>
+    <p class="error__message"><%= message %></p>
+    <p><%= errStack %></p>
+    <a href="/" class="btn btn--primary">Back to Homepage</a>
+  </section>
+</main>

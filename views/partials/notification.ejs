@@ -1,0 +1,15 @@
+<% if(successMsg && successMsg.length > 0) { %>
+<div class="alert alert--success">
+  <div class="container alert__box">
+    <p class="alert__text"><%= successMsg %></p>
+    <button class="alert__close">X</button>
+  </div>
+</div>
+<% } %> <% if(errorMsg && errorMsg.length > 0) { %>
+<div class="alert alert--danger">
+  <div class="container alert__box">
+    <p class="alert__text"><%= errorMsg %></p>
+    <button class="alert__close">X</button>
+  </div>
+</div>
+<% } %>
