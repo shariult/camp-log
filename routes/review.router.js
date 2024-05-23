@@ -1,22 +1,29 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 
-const { AsyncError } = require("../utils/index.utils");
-const middleware = require("../middleware/index.middleware");
+const errorHandler = require("../utils/errorHandler");
+const authValidate = require("../middleware/authValidate");
+const joiValidate = require("../middleware/joiValidate");
 
 const {
   postReview,
   deleteReview,
 } = require("../controllers/review.controller");
 
-router.route("/").post(middleware.isLoggedIn, AsyncError(postReview));
+router
+  .route("/")
+  .post(
+    authValidate.isLoggedIn,
+    joiValidate.validateReview,
+    errorHandler.AsyncError(postReview)
+  );
 
 router
   .route("/:reviewId")
   .delete(
-    middleware.isLoggedIn,
-    middleware.isReviewOwner,
-    AsyncError(deleteReview)
+    authValidate.isLoggedIn,
+    authValidate.isReviewOwner,
+    errorHandler.AsyncError(deleteReview)
   );
 
 module.exports = router;

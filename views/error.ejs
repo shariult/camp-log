@@ -5,7 +5,9 @@
     <h2 class="heading-2">Error</h2>
     <p class="error__title"><%= statusCode %></p>
     <p class="error__message"><%= message %></p>
-    <p><%= errStack %></p>
+    <% if(process.env.NODE_ENV === "dev"){ %>
+    <pre class="m-24"><%= errStack %></pre>
+    <% } %>
     <a href="/" class="btn btn--primary">Back to Homepage</a>
   </section>
 </main>

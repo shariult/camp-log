@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const { AsyncError } = require("../utils/index.utils");
-const middleware = require("../middleware/index.middleware");
+const errorHandler = require("../utils/errorHandler");
+const authValidate = require("../middleware/authValidate");
+const joiValidate = require("../middleware/joiValidate");
 
 const {
   getCamps,
@@ -16,27 +17,36 @@ const {
 
 router
   .route("/")
-  .get(AsyncError(getCamps))
-  .post(middleware.isLoggedIn, AsyncError(postCamp));
+  .get(errorHandler.AsyncError(getCamps))
+  .post(
+    authValidate.isLoggedIn,
+    joiValidate.validateCamp,
+    errorHandler.AsyncError(postCamp)
+  );
 
-router.route("/new").get(middleware.isLoggedIn, getCampPostForm);
+router.route("/new").get(authValidate.isLoggedIn, getCampPostForm);
 
 router
   .route("/:campId")
-  .get(AsyncError(getCamp))
-  .put(middleware.isLoggedIn, middleware.isCampOwner, AsyncError(putCamp))
+  .get(errorHandler.AsyncError(getCamp))
+  .put(
+    authValidate.isLoggedIn,
+    authValidate.isCampOwner,
+    joiValidate.validateCamp,
+    errorHandler.AsyncError(putCamp)
+  )
   .delete(
-    middleware.isLoggedIn,
-    middleware.isCampOwner,
-    AsyncError(deleteCamp)
+    authValidate.isLoggedIn,
+    authValidate.isCampOwner,
+    errorHandler.AsyncError(deleteCamp)
   );
 
 router
   .route("/:campId/edit")
   .get(
-    middleware.isLoggedIn,
-    middleware.isCampOwner,
-    AsyncError(getCampUpdateForm)
+    authValidate.isLoggedIn,
+    authValidate.isCampOwner,
+    errorHandler.AsyncError(getCampUpdateForm)
   );
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { AsyncError } = require("../utils/index.utils");
+const { AsyncError } = require("../utils/errorHandler");
 
 const {
   getHomepage,

@@ -15,7 +15,7 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 
 // Custom Imports //
-const { ExpressError } = require("./utils/index.utils");
+const { ExpressError } = require("./utils/errorHandler");
 const db = require("./models");
 const indexRoutes = require("./routes/index.router");
 const campRoutes = require("./routes/camp.router");
