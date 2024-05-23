@@ -10,32 +10,19 @@ function getCampPostForm(req, res) {
 }
 
 async function postCamp(req, res) {
-  const {
-    title,
-    location,
-    price,
-    campImage,
-    amenities,
-    capacity,
-    area,
-    description,
-    contact,
-    website,
-  } = req.body;
   const newCampData = {
-    title,
-    location,
-    price,
-    campImage: campImage.length > 0 ? campImage : undefined,
-    amenities: amenities.split(","),
-    capacity,
-    area,
-    description,
-    contact,
-    website,
+    title: req.body.title,
+    location: req.body.location,
+    price: req.body.price,
+    campImage: req.body.campImage.length > 0 ? req.body.campImage : undefined,
+    amenities: req.body.amenities.split(","),
+    capacity: req.body.capacity,
+    area: req.body.area,
+    description: req.body.description,
+    contact: req.body.contact,
+    website: req.body.website,
     owner: req.user,
   };
-  console.log(newCampData);
   const campData = await db.Camp.create(newCampData);
   req.flash("success", "Camp Created Successfully!");
   res.redirect("/camps/" + campData._id);
@@ -64,29 +51,18 @@ async function getCampUpdateForm(req, res) {
 
 async function putCamp(req, res) {
   const { campId } = req.params;
-  const {
-    title,
-    location,
-    price,
-    campImage,
-    amenities,
-    capacity,
-    area,
-    description,
-    contact,
-    website,
-  } = req.body;
   const editCampData = {
-    title,
-    location,
-    price,
-    campImage,
-    amenities: amenities.split(","),
-    capacity,
-    area,
-    description,
-    contact,
-    website,
+    title: req.body.title,
+    location: req.body.location,
+    price: req.body.price,
+    campImage: req.body.campImage,
+    amenities: req.body.amenities.split(","),
+    capacity: req.body.capacity,
+    area: req.body.area,
+    description: req.body.description,
+    contact: req.body.contact,
+    website: req.body.website,
+    owner: req.user,
   };
   const campData = await db.Camp.findByIdAndUpdate(campId, editCampData, {
     new: true,

@@ -5,26 +5,16 @@ function getUserPage(req, res) {
 }
 
 async function postRegisterUser(req, res) {
-  const {
-    firstname,
-    lastname,
-    username,
-    password,
-    email,
-    birthDate,
-    userImage,
-    about,
-  } = req.body;
   const newUserData = new db.User({
-    firstname,
-    lastname,
-    username,
-    email,
-    birthDate,
-    userImage: userImage.length > 0 ? userImage : undefined,
-    about,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    username: req.body.username,
+    email: req.body.email,
+    birthDate: req.body.birthDate,
+    userImage: req.body.userImage.length > 0 ? req.body.userImage : undefined,
+    about: req.body.about,
   });
-  const registerUser = await db.User.register(newUserData, password);
+  const registerUser = await db.User.register(newUserData, req.body.password);
   req.login(registerUser, function (err) {
     if (err) {
       return next(err);
@@ -44,7 +34,7 @@ function getLogoutUser(req, res) {
     if (err) {
       return next(err);
     }
-    req.flash("success", "Logout Successful!");
+    req.flash("success", "You are logged out!");
     res.redirect("/");
   });
 }
