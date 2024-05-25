@@ -14,13 +14,19 @@ const campJoiSchema = Joi.object({
   description: Joi.string().required(),
   contact: Joi.string().required(),
   website: Joi.string(),
-  "g-recaptcha-response": Joi.string().required(),
+  "g-recaptcha-response": Joi.string().required().messages({
+    "string.empty": "Complete Captcha to proceed!",
+    "any.required": "Captcha is required",
+  }),
 }).required();
 
 const reviewJoiSchema = Joi.object({
   content: Joi.string().required().min(5),
   rating: Joi.number().required().min(1),
-  "g-recaptcha-response": Joi.string().required(),
+  "g-recaptcha-response": Joi.string().required().messages({
+    "string.empty": "Complete Captcha to proceed!",
+    "any.required": "Captcha is required",
+  }),
 }).required();
 
 const userJoiSchema = Joi.object({
@@ -33,7 +39,10 @@ const userJoiSchema = Joi.object({
   birthDate: Joi.date().required(),
   about: Joi.string(),
   isAdmin: Joi.boolean(),
-  "g-recaptcha-response": Joi.string().required(),
+  "g-recaptcha-response": Joi.string().required().messages({
+    "string.empty": "Complete Captcha to proceed!",
+    "any.required": "Captcha is required",
+  }),
 }).required();
 
 module.exports = { campJoiSchema, reviewJoiSchema, userJoiSchema };
