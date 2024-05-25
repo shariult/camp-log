@@ -13,7 +13,6 @@ function validateCamp(req, res, next) {
 
 function validateReview(req, res, next) {
   const validate = joiSchemas.reviewJoiSchema.validate(req.body);
-  console.log(validate.error);
   if (validate.error) {
     const message = validate.error.details.map((err) => err.message).join(",");
     throw new errorHandler.ExpressError(message, 400);
