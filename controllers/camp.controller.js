@@ -1,4 +1,5 @@
 const db = require("../models");
+const { cloudinary } = require("../utils/cloudinaryConfig");
 
 async function getCamps(req, res) {
   const campsData = await db.Camp.find({});
@@ -14,7 +15,10 @@ async function postCamp(req, res) {
     title: req.body.title,
     location: req.body.location,
     price: req.body.price,
-    campImage: req.body.campImage.length > 0 ? req.body.campImage : undefined,
+    campImage: {
+      url: req.file.path,
+      filename: req.file.filename,
+    },
     amenities: req.body.amenities.split(","),
     capacity: req.body.capacity,
     area: req.body.area,
@@ -43,7 +47,7 @@ async function getCamp(req, res) {
   res.render("camps/show", { campData });
 }
 
-async function getCampUpdateForm(req, res) {
+async function getCampEditForm(req, res) {
   const { campId } = req.params;
   const campData = await db.Camp.findById(campId);
   res.render("camps/edit", { campData });
@@ -51,11 +55,17 @@ async function getCampUpdateForm(req, res) {
 
 async function putCamp(req, res) {
   const { campId } = req.params;
+  const currentCampData = await db.Camp.findById(campId);
   const editCampData = {
     title: req.body.title,
     location: req.body.location,
     price: req.body.price,
-    campImage: req.body.campImage,
+    campImage: {
+      url: req.file ? req.file.path : currentCampData.campImage.url,
+      filename: req.file
+        ? req.file.filename
+        : currentCampData.campImage.filename,
+    },
     amenities: req.body.amenities.split(","),
     capacity: req.body.capacity,
     area: req.body.area,
@@ -64,6 +74,9 @@ async function putCamp(req, res) {
     website: req.body.website,
     owner: req.user,
   };
+  if (req.file) {
+    await cloudinary.uploader.destroy(currentCampData.campImage.filename);
+  }
   const campData = await db.Camp.findByIdAndUpdate(campId, editCampData, {
     new: true,
     runValidators: true,
@@ -75,6 +88,9 @@ async function putCamp(req, res) {
 async function deleteCamp(req, res) {
   const { campId } = req.params;
   const campDeleted = await db.Camp.findByIdAndDelete(campId);
+  const imageDeleted = await cloudinary.uploader.destroy(
+    campDeleted.campImage.filename
+  );
   const reviewsDeleted = await db.Review.deleteMany({
     _id: { $in: campDeleted.reviews },
   });
@@ -87,7 +103,7 @@ module.exports = {
   getCampPostForm,
   postCamp,
   getCamp,
-  getCampUpdateForm,
+  getCampEditForm,
   putCamp,
   deleteCamp,
 };

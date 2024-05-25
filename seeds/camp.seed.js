@@ -27,11 +27,15 @@ async function seedCamp() {
       emailProviders[Math.floor(Math.random() * emailProviders.length)];
     const tld = tlds[Math.floor(Math.random() * tlds.length)];
     const { city, state } = cities[Math.floor(Math.random() * cities.length)];
+    const imageUrl = `/img/camp-${Math.ceil(Math.random() * 15)}.jpg`;
 
     const title = `${adjective} ${noun} ${type}`;
     const location = `${city}, ${state}`;
     const price = Math.floor(Math.random() * 99) + 1;
-    const campImage = `/img/camp-${Math.ceil(Math.random() * 15)}.jpg`;
+    const campImage = {
+      url: imageUrl,
+      filename: imageUrl,
+    };
     const capacity = Math.ceil(Math.random() * 100);
     const area = `${Math.ceil(Math.random() * 50)} acres`;
     const description =

@@ -10,6 +10,7 @@
         action="/camps/<%= campData._id %>?_method=PUT"
         method="post"
         class="form"
+        enctype="multipart/form-data"
       >
         <div class="form__group">
           <label for="title" class="form__label">Camp Title</label>
@@ -45,17 +46,6 @@
             placeholder="Price per Night"
             value="<%= campData.price %>"
             required
-          />
-        </div>
-        <div class="form__group">
-          <label for="campImage" class="form__label">Camp Image</label>
-          <input
-            type="text"
-            name="campImage"
-            id="campImage"
-            class="form__input"
-            placeholder="Camp Image"
-            value="<%= campData.campImage %>"
           />
         </div>
         <div class="form__group">
@@ -123,6 +113,37 @@
           >
 <%= campData.description %></textarea
           >
+        </div>
+        <div class="form__group">
+          <label for="campImage" class="form__label">Camp Image</label>
+          <input
+            type="file"
+            name="campImage"
+            id="campImage"
+            class="form__file-input"
+          />
+        </div>
+        <div class="form__group form__image-row">
+          <div class="form__image-col">
+            <img
+              src="<%= campData.campImage.url %>"
+              alt="<%= campData.campImage.filename %>"
+              class="form__image"
+            />
+            <div class="form__checkbox">
+              <!-- <input
+                type="checkbox"
+                name="campImageOld"
+                id="campImage-1"
+                class="form__checkbox-input"
+                value="campImage-1"
+              />
+              <label for="campImage-1" class="form__checkbox-label"
+                ><span class="form__checkbox-btn"></span> Delete Image</label
+              > -->
+              <p>Current Image</p>
+            </div>
+          </div>
         </div>
         <button type="submit" class="btn btn--md btn--primary mt-24">
           Update Camp

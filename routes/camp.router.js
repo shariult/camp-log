@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const { storage } = require("../utils/cloudinaryConfig");
+const upload = multer({ storage: storage });
 
 const errorHandler = require("../utils/errorHandler");
 const authValidate = require("../middleware/authValidate");
@@ -10,7 +13,7 @@ const {
   getCampPostForm,
   postCamp,
   getCamp,
-  getCampUpdateForm,
+  getCampEditForm,
   putCamp,
   deleteCamp,
 } = require("../controllers/camp.controller");
@@ -20,6 +23,7 @@ router
   .get(errorHandler.AsyncError(getCamps))
   .post(
     authValidate.isLoggedIn,
+    upload.single("campImage"),
     joiValidate.validateCamp,
     errorHandler.AsyncError(postCamp)
   );
@@ -32,6 +36,7 @@ router
   .put(
     authValidate.isLoggedIn,
     authValidate.isCampOwner,
+    upload.single("campImage"),
     joiValidate.validateCamp,
     errorHandler.AsyncError(putCamp)
   )
@@ -46,7 +51,7 @@ router
   .get(
     authValidate.isLoggedIn,
     authValidate.isCampOwner,
-    errorHandler.AsyncError(getCampUpdateForm)
+    errorHandler.AsyncError(getCampEditForm)
   );
 
 module.exports = router;

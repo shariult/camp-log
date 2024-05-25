@@ -17,8 +17,8 @@ const campSchema = mongoose.Schema(
       min: 1,
     },
     campImage: {
-      type: String,
-      default: "/img/camp-1.jpg",
+      url: String,
+      filename: String,
     },
     amenities: [String],
     capacity: {

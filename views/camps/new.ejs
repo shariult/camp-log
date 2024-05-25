@@ -6,7 +6,12 @@
       <span class="heading-2--sub">Share Your Experience</span>Post Camp
     </h2>
     <div class="container-form">
-      <form action="/camps" method="post" class="form">
+      <form
+        action="/camps"
+        method="post"
+        class="form"
+        enctype="multipart/form-data"
+      >
         <div class="form__group">
           <label for="title" class="form__label">Camp Title</label>
           <input
@@ -43,11 +48,11 @@
         <div class="form__group">
           <label for="campImage" class="form__label">Camp Image</label>
           <input
-            type="text"
+            type="file"
             name="campImage"
             id="campImage"
-            class="form__input"
-            placeholder="Camp Image"
+            class="form__file-input"
+            required
           />
         </div>
         <div class="form__group">

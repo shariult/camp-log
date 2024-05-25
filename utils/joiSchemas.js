@@ -4,7 +4,10 @@ const campJoiSchema = Joi.object({
   title: Joi.string().required(),
   location: Joi.string().required(),
   price: Joi.number().required().min(1),
-  campImage: Joi.string(),
+  campImage: Joi.object({
+    url: Joi.string(),
+    filename: Joi.string(),
+  }),
   amenities: Joi.string(),
   capacity: Joi.number().required().min(1),
   area: Joi.string().required(),
