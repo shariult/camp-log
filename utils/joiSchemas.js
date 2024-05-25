@@ -14,11 +14,13 @@ const campJoiSchema = Joi.object({
   description: Joi.string().required(),
   contact: Joi.string().required(),
   website: Joi.string(),
+  "g-recaptcha-response": Joi.string().required(),
 }).required();
 
 const reviewJoiSchema = Joi.object({
   content: Joi.string().required().min(5),
   rating: Joi.number().required().min(1),
+  "g-recaptcha-response": Joi.string().required(),
 }).required();
 
 const userJoiSchema = Joi.object({
@@ -31,6 +33,7 @@ const userJoiSchema = Joi.object({
   birthDate: Joi.date().required(),
   about: Joi.string(),
   isAdmin: Joi.boolean(),
+  "g-recaptcha-response": Joi.string().required(),
 }).required();
 
 module.exports = { campJoiSchema, reviewJoiSchema, userJoiSchema };
