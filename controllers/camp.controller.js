@@ -1,5 +1,6 @@
 const db = require("../models");
 const { cloudinary } = require("../utils/cloudinaryConfig");
+const { ExpressError } = require("../utils/errorHandler");
 
 async function getCamps(req, res) {
   const campsData = await db.Camp.find({});
@@ -11,6 +12,10 @@ function getCampPostForm(req, res) {
 }
 
 async function postCamp(req, res) {
+  if (req.file.size > 81920) {
+    await cloudinary.uploader.destroy(req.file.filename);
+    throw new ExpressError("Maximum allowed file size is 80kb.", 400);
+  }
   const newCampData = {
     title: req.body.title,
     location: req.body.location,
@@ -54,6 +59,12 @@ async function getCampEditForm(req, res) {
 }
 
 async function putCamp(req, res) {
+  if (req.file && req.file.size > 81920) {
+    const campImageDeleted = await cloudinary.uploader.destroy(
+      req.file.filename
+    );
+    throw new ExpressError("Maximum allowed file size is 80kb.", 400);
+  }
   const { campId } = req.params;
   const currentCampData = await db.Camp.findById(campId);
   const editCampData = {
@@ -75,7 +86,9 @@ async function putCamp(req, res) {
     owner: req.user,
   };
   if (req.file) {
-    await cloudinary.uploader.destroy(currentCampData.campImage.filename);
+    const campImageDeleted = await cloudinary.uploader.destroy(
+      currentCampData.campImage.filename
+    );
   }
   const campData = await db.Camp.findByIdAndUpdate(campId, editCampData, {
     new: true,
