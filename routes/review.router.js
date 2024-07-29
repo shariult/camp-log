@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 
-const errorHandler = require("../utils/errorHandler");
+const { AsyncError } = require("../utils/errorHandler");
 const authValidate = require("../middleware/authValidate");
 const joiValidate = require("../middleware/joiValidate");
 
@@ -15,7 +15,7 @@ router
   .post(
     authValidate.isLoggedIn,
     joiValidate.validateReview,
-    errorHandler.AsyncError(postReview)
+    AsyncError(postReview)
   );
 
 router
@@ -23,7 +23,7 @@ router
   .delete(
     authValidate.isLoggedIn,
     authValidate.isReviewOwner,
-    errorHandler.AsyncError(deleteReview)
+    AsyncError(deleteReview)
   );
 
 module.exports = router;

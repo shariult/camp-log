@@ -4,7 +4,7 @@ const multer = require("multer");
 const { storage } = require("../utils/cloudinaryConfig");
 const upload = multer({ storage: storage });
 
-const errorHandler = require("../utils/errorHandler");
+const { AsyncError } = require("../utils/errorHandler");
 const authValidate = require("../middleware/authValidate");
 const joiValidate = require("../middleware/joiValidate");
 
@@ -20,30 +20,30 @@ const {
 
 router
   .route("/")
-  .get(errorHandler.AsyncError(getCamps))
+  .get(AsyncError(getCamps))
   .post(
     authValidate.isLoggedIn,
     upload.single("campImage"),
     joiValidate.validateCamp,
-    errorHandler.AsyncError(postCamp)
+    AsyncError(postCamp)
   );
 
 router.route("/new").get(authValidate.isLoggedIn, getCampPostForm);
 
 router
   .route("/:campId")
-  .get(errorHandler.AsyncError(getCamp))
+  .get(AsyncError(getCamp))
   .put(
     authValidate.isLoggedIn,
     authValidate.isCampOwner,
     upload.single("campImage"),
     joiValidate.validateCamp,
-    errorHandler.AsyncError(putCamp)
+    AsyncError(putCamp)
   )
   .delete(
     authValidate.isLoggedIn,
     authValidate.isCampOwner,
-    errorHandler.AsyncError(deleteCamp)
+    AsyncError(deleteCamp)
   );
 
 router
@@ -51,7 +51,7 @@ router
   .get(
     authValidate.isLoggedIn,
     authValidate.isCampOwner,
-    errorHandler.AsyncError(getCampEditForm)
+    AsyncError(getCampEditForm)
   );
 
 module.exports = router;
