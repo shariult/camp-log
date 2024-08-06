@@ -26,11 +26,16 @@ async function seedCamp() {
     const emailProvider =
       emailProviders[Math.floor(Math.random() * emailProviders.length)];
     const tld = tlds[Math.floor(Math.random() * tlds.length)];
-    const { city, state } = cities[Math.floor(Math.random() * cities.length)];
+    const { city, state, longitude, latitude } =
+      cities[Math.floor(Math.random() * cities.length)];
     const imageUrl = `/img/camp-${Math.ceil(Math.random() * 15)}.jpg`;
 
     const title = `${adjective} ${noun} ${type}`;
     const location = `${city}, ${state}`;
+    const geometry = {
+      type: "Point",
+      coordinates: [longitude, latitude],
+    };
     const price = Math.floor(Math.random() * 99) + 1;
     const campImage = {
       url: imageUrl,
@@ -50,6 +55,7 @@ async function seedCamp() {
     const campData = {
       title,
       location,
+      geometry,
       price,
       campImage,
       capacity,

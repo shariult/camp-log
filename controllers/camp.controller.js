@@ -1,13 +1,16 @@
 const db = require("../models");
 const { cloudinary } = require("../utils/cloudinaryConfig");
 const { ExpressError } = require("../utils/errorHandler");
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 async function getCamps(req, res) {
   const campsData = await db.Camp.find({});
   res.render("camps", { campsData, currentPage: "allCamps" });
 }
 
-function getCampPostForm(req, res) {
+async function getCampPostForm(req, res) {
   res.render("camps/new", { currentPage: "newCamp" });
 }
 
@@ -16,9 +19,19 @@ async function postCamp(req, res) {
     await cloudinary.uploader.destroy(req.file.filename);
     throw new ExpressError("Maximum allowed file size is 80kb.", 400);
   }
+
+  const geoData = await geocoder
+    .forwardGeocode({
+      query: req.body.location,
+      limit: 1,
+    })
+    .send();
+  const geometry = geoData.body.features[0].geometry;
+
   const newCampData = {
     title: req.body.title,
     location: req.body.location,
+    geometry,
     price: req.body.price,
     campImage: {
       url: req.file.path,

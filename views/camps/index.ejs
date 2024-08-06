@@ -2,12 +2,12 @@
 
 <main class="main">
   <section class="section-map">
-    <div class="section-map__img-box">
-      <img
+    <div class="section-map__img-box" id="map-cluster">
+      <%#<img
         src="img/map-dummy.daa78036.jpg"
         alt="dummy map"
         class="section-map__img"
-      />
+      />%>
     </div>
     <h1 class="heading-1 section-map__title">All Camps</h1>
   </section>
@@ -50,3 +50,26 @@
     </div>
   </section>
 </main>
+
+<link
+  href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css"
+  rel="stylesheet"
+/>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+<script>
+  const MAPBOX_TOKEN = "<%- process.env.MAPBOX_TOKEN %>";
+  const campsData = JSON.parse(`<%- JSON.stringify(campsData) %>`);
+  const campsGeoData = {
+    features: campsData.map(function (campData) {
+      return {
+        properties: {
+          popupMarkup: `<strong><a href="/camps/${campData._id}">${
+            campData.title
+          }</a><strong><p>${campData.description.substring(0, 20)}...</p>`,
+        },
+        geometry: campData.geometry,
+      };
+    }),
+  };
+</script>
+<script src="/js/scriptMap.js"></script>

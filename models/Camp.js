@@ -11,6 +11,17 @@ const campSchema = mongoose.Schema(
       type: String,
       required: [true, "Camp location is required!"],
     },
+    geometry: {
+      type: {
+        type: String,
+        enum: ["Point"],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
     price: {
       type: Number,
       required: [true, "Camp price is required!"],
