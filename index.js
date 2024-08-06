@@ -14,6 +14,9 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+
 // Custom Imports //
 const { ExpressError } = require("./utils/errorHandler");
 const db = require("./models");
@@ -23,6 +26,13 @@ const reviewRoutes = require("./routes/review.router");
 const userRoutes = require("./routes/user.router");
 
 // Configuration //
+app.use(
+  mongoSanitize({
+    replaceWith: "_",
+  })
+);
+app.use(helmet({ contentSecurityPolicy: false }));
+
 const sessionConfig = {
   secret: process.env.SECRET,
   resave: false,
@@ -33,6 +43,9 @@ const sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
+if (process.env.NODE_ENV !== "dev") {
+  sessionConfig.cookie.secure = true;
+}
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
