@@ -16,6 +16,7 @@ const localStrategy = require("passport-local");
 
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
+const connectMongo = require("connect-mongo");
 
 // Custom Imports //
 const { ExpressError } = require("./utils/errorHandler");
@@ -38,6 +39,13 @@ const sessionConfig = {
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
+  store: connectMongo.create({
+    mongoUrl: process.env.DBURL,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+      secret: process.env.SECRET,
+    },
+  }),
   cookie: {
     httpOnly: true,
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
