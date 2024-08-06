@@ -14,8 +14,8 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 
-const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
 const connectMongo = require("connect-mongo");
 
 // Custom Imports //
@@ -27,12 +27,12 @@ const reviewRoutes = require("./routes/review.router");
 const userRoutes = require("./routes/user.router");
 
 // Configuration //
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
   mongoSanitize({
     replaceWith: "_",
   })
 );
-app.use(helmet({ contentSecurityPolicy: false }));
 
 const sessionConfig = {
   name: "CLS1",
