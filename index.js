@@ -44,9 +44,9 @@ const sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
-if (process.env.NODE_ENV !== "dev") {
-  sessionConfig.cookie.secure = true;
-}
+// if (process.env.NODE_ENV !== "dev") {
+//   sessionConfig.cookie.secure = true;
+// }
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
