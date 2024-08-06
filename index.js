@@ -34,6 +34,7 @@ app.use(
 app.use(helmet({ contentSecurityPolicy: false }));
 
 const sessionConfig = {
+  name: "CLS1",
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
