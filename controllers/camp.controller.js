@@ -9,10 +9,14 @@ async function getCamps(req, res) {
   const searchStr = req.query.search;
 
   const query = {};
-  if (searchStr && searchStr.trim().length > 3) {
+  if (
+    searchStr &&
+    typeof searchStr === "string" &&
+    searchStr.trim().length > 3
+  ) {
     query.$or = [
-      { title: { $regex: searchStr, $options: "i" } },
-      { location: { $regex: searchStr, $options: "i" } },
+      { title: { $regex: searchStr.trim(), $options: "i" } },
+      { location: { $regex: searchStr.trim(), $options: "i" } },
     ];
   }
   const campsData = await db.Camp.find(query);
