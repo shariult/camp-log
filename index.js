@@ -31,7 +31,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(
   mongoSanitize({
     replaceWith: "_",
-  })
+  }),
 );
 
 const sessionConfig = {

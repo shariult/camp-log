@@ -6,7 +6,16 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 async function getCamps(req, res) {
-  const campsData = await db.Camp.find({});
+  const searchStr = req.query.search;
+
+  const query = {};
+  if (searchStr && searchStr.trim().length > 3) {
+    query.$or = [
+      { title: { $regex: searchStr, $options: "i" } },
+      { location: { $regex: searchStr, $options: "i" } },
+    ];
+  }
+  const campsData = await db.Camp.find(query);
   res.render("camps", { campsData, currentPage: "allCamps" });
 }
 
@@ -74,7 +83,7 @@ async function getCampEditForm(req, res) {
 async function putCamp(req, res) {
   if (req.file && req.file.size > 81920) {
     const campImageDeleted = await cloudinary.uploader.destroy(
-      req.file.filename
+      req.file.filename,
     );
     throw new ExpressError("Maximum allowed file size is 80kb.", 400);
   }
@@ -100,7 +109,7 @@ async function putCamp(req, res) {
   };
   if (req.file) {
     const campImageDeleted = await cloudinary.uploader.destroy(
-      currentCampData.campImage.filename
+      currentCampData.campImage.filename,
     );
   }
   const campData = await db.Camp.findByIdAndUpdate(campId, editCampData, {
@@ -115,7 +124,7 @@ async function deleteCamp(req, res) {
   const { campId } = req.params;
   const campDeleted = await db.Camp.findByIdAndDelete(campId);
   const imageDeleted = await cloudinary.uploader.destroy(
-    campDeleted.campImage.filename
+    campDeleted.campImage.filename,
   );
   const reviewsDeleted = await db.Review.deleteMany({
     _id: { $in: campDeleted.reviews },
