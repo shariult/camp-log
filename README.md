@@ -57,12 +57,12 @@ npm i
 npm run dev
 ```
 
-## Screenshots
-
-![camp-log](./public/img/camplog-screenshot.webp)
-
 ## 📬 Let's Connect & Collaborate!
 
 I am currently open to freelance projects, remote positions, and collaborative opportunities.
 
 [<img src="https://img.shields.io/badge/Website-shariul.com-blue?style=for-the-badge&logo=google-chrome&logoColor=white" />](https://shariul.com) [<img src="https://img.shields.io/badge/LinkedIn-shariul-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/shariul/) [<img src="https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white" />](https://discord.gg/9q5GRgVS2)
+
+## Screenshots
+
+![camp-log](./public/img/camplog-screenshot.webp)
